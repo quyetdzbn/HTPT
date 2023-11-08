@@ -1,0 +1,11 @@
+spring:
+    datasource:
+      url: jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;databaseName=StoreManagement
+      username: sa
+      password: 123456
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    jpa:
+      show-sql: true
+    mvc:
+      pathmatch:
+        matching-strategy: ant_path_matcher
