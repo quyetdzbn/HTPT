@@ -25,4 +25,9 @@ public class Employee {
     private double sal;
 
     private int id_bra;
+
+    private String username;
+
+    private String password;
+
 }
