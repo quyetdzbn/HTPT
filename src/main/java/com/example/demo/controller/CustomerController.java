@@ -10,10 +10,17 @@
 
 // import java.util.List;
 
+
 // @RestController
 // public class CustomerController {
 // @Autowired
 // CustomerService service;
+
+@Controller
+public class CustomerController {
+    @Autowired
+    CustomerService service;
+
 
 // @GetMapping("/customer")
 // public List<Customer> getAll(){
