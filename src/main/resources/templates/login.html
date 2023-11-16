@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+
+<head th:replace="fragments :: header">
+</head>
+
+<body class="bg-gradient-primary">
+
+<div class="container">
+
+  <div class="row justify-content-center">
+
+    <div class="col-xl-10 col-lg-12 col-md-9">
+
+      <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+          
+          <div class="row">
+
+            
+            <div class="col-lg-6 mx-auto">
+              <div class="p-5">
+                <div class="text-center">
+                  <h1 class="h4 text-gray-900 mb-4">Welcome come!</h1>
+                </div>
+                <div th:if = "${error1}" class="alert alert-danger text-center">
+                  Invalid username or password
+                </div>
+                <div th:if = "${logout}" class="alert alert-success text-center">
+                  You have been logged out!
+                </div>
+                <form class="user" th:action="@{/do-login}" method="post">
+                  <div class="form-group">
+                    <input type="text" name="username" class="form-control form-control-user"
+                           id="username"
+                           placeholder="Username...">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="password" id="password" class="form-control form-control-user"
+                           placeholder="Password">
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-user btn-block">
+                    Login
+                  </button>
+                  <hr>
+                </form>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div th:replace="fragments :: script"></div>
+</body>
+
+</html>
