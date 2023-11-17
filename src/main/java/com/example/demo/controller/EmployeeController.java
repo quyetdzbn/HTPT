@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Customer;
+import com.example.demo.entity.Employee;
 import com.example.demo.entity.Food;
 import com.example.demo.service.CustomerService;
+import com.example.demo.service.EmployeeService;
 import com.example.demo.service.FoodService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,29 +23,29 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-public class CustomerController {
+public class EmployeeController {
     @Autowired
-    CustomerService service;
+    EmployeeService service;
     
 //  public CustomerController(CustomerService service){
 //         this.service = service;
 //     }
 
-   @GetMapping("/customer")
-    public String customer(Model model, Principal principal){
+   @GetMapping("/employee")
+    public String employee(Model model, Principal principal){
 //        if(principal == null){
 //            return "redirect:/login";
 //        }
-        List<Customer> c = service.getAll();
+        List<Employee> c = service.getAllEmployees();
         model.addAttribute("foodList", c);
         model.addAttribute("size", c.size());
         model.addAttribute("title", "c");
-        model.addAttribute("Customernew", new Customer());
-        return "customers";
+        model.addAttribute("Employeenew", new Customer());
+        return "employee";
     }
 
-        @PostMapping("/add-customer")
-    public String add(@ModelAttribute("Customernew") Customer c, RedirectAttributes attributes){
+        @PostMapping("/add-employee")
+    public String add(@ModelAttribute("Employeenew") Employee c, RedirectAttributes attributes){
         try {
             service.save(c);
             attributes.addFlashAttribute("success", "Added successfully!");
@@ -54,15 +56,15 @@ public class CustomerController {
             e.printStackTrace();
             attributes.addFlashAttribute("failed", "Error server!");
         }
-        return "redirect:/customers";
+        return "redirect:/employee";
     }
-     @RequestMapping(value = "c/findById", method = {RequestMethod.PUT, RequestMethod.GET})
+    @RequestMapping(value = "/e/findById", method = {RequestMethod.PUT, RequestMethod.GET})
     @ResponseBody
-    public Customer getById(Integer id){
+    public Employee getById(Integer id){
         return service.getById(id);
     }
-    @GetMapping("/update-customer")
-    public String update(Customer c, RedirectAttributes attributes){
+    @GetMapping("/update-employee")
+    public String update(Employee c, RedirectAttributes attributes){
         try {
             service.save(c);
             attributes.addFlashAttribute("success", "Updated successfully!");
@@ -73,10 +75,10 @@ public class CustomerController {
             e.printStackTrace();
             attributes.addFlashAttribute("failed", "Error server");
         }
-        return "redirect:/customers";
+        return "redirect:/employee";
     }
     
-    @RequestMapping(value = "/delete-customer", method = {RequestMethod.PUT, RequestMethod.GET})
+    @RequestMapping(value = "/delete-employee", method = {RequestMethod.PUT, RequestMethod.GET})
     public String delete(Integer id, RedirectAttributes attributes){
         try {
             service.delete(id);
@@ -85,6 +87,6 @@ public class CustomerController {
             e.printStackTrace();
             attributes.addFlashAttribute("failed", "Failed to deleted");
         }
-        return "redirect:/customers";
+        return "redirect:/employee";
     }
 }
