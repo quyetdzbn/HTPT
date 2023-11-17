@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,4 +23,7 @@ public class Storage {
     private String addr;
 
     private int id_bra;
+
+    @OneToMany(mappedBy = "storage")
+    private List<ReceiptNote> receiptNotes;
 }
