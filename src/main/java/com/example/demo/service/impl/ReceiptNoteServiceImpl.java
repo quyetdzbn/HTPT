@@ -31,8 +31,8 @@ public class ReceiptNoteServiceImpl implements ReceiptNoteService {
         receiptNote1.setDate_time(receiptNote.getDate_time());
         receiptNote1.setSource(receiptNote.getSource());
         receiptNote1.setTotalPrice(receiptNote.getTotalPrice());
-        receiptNote1.setId_emp(receiptNote.getId_emp());
-        receiptNote1.setId_sto(receiptNote.getId_sto());
+        receiptNote1.setEmployee(receiptNote.getEmployee());
+        receiptNote1.setStorage(receiptNote.getStorage());
 
         return repo.save(receiptNote1);
     }
@@ -45,8 +45,8 @@ public class ReceiptNoteServiceImpl implements ReceiptNoteService {
             receiptNote1.setDate_time(receiptNote.getDate_time());
             receiptNote1.setSource(receiptNote.getSource());
             receiptNote1.setTotalPrice(receiptNote.getTotalPrice());
-            receiptNote1.setId_emp(receiptNote.getId_emp());
-            receiptNote1.setId_sto(receiptNote.getId_sto());
+            receiptNote1.setEmployee(receiptNote.getEmployee());
+            receiptNote1.setStorage(receiptNote.getStorage());
 
         } catch (Exception ex) {
             ex.printStackTrace();
