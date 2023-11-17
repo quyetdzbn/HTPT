@@ -24,7 +24,11 @@ public class ReceiptNote {
 
     private double totalPrice;
 
-    private int id_emp;
+    @ManyToOne
+    @JoinColumn(name = "id_emp")
+    private Employee employee;
 
-    private int id_sto;
+    @ManyToOne
+    @JoinColumn(name = "id_sto")
+    private Storage storage;
 }
