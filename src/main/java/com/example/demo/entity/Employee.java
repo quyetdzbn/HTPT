@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -37,5 +39,8 @@ public class Employee {
 
     @Column(name = "password")
     private String password;
+
+    @OneToMany(mappedBy = "employee")
+    private List<ReceiptNote> receiptNotes;
 
 }

@@ -13,12 +13,11 @@ import javax.persistence.*;
 @Table(name = "FOOD")
 public class Food {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_foo")
-    private int id_foo;
+    private String id;
 
     @Column(name = "name_foo")
-    private String name_foo;
+    private String name;
 
     @Column(name = "price")
     private double price;

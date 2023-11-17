@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: header">
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul th:replace="fragments :: sidebar">
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav th:replace="fragments :: topbar"></nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div th:if="${size == 0}">
+                        <p>No food</p>
+                    </div>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                        data-whatever="@mdo">Add new food</button>
+                    <div th:if="${success}" class="text-center alert alert-success">
+                        <p th:text="${success}"></p>
+                    </div>
+                    <div th:if="${failed}" class="text-center alert alert-danger">
+                        <p th:text="${failed}"></p>
+                    </div>
+                    <table class="table table-bordered" th:if="${size > 0}">
+                        <thead>
+                            <tr>
+                                <th scope="col">ReceiptNote Index</th>
+                                <th scope="col">Employee Name</th>
+                                <th scope="col">Storage Address</th>
+                                <th scope="col">Total Price</th>
+                                <th scope="col">Date Time</th>
+                                <th scope="col">Edit ReceiptNote</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="rec : ${receiptNoteList}">
+                                <th scope="row" th:text="${rec.id_rec}" th:js-id="${rec.id_rec}"></th>
+                                <td th:text="${rec.employee.fullname}" th:js-id="${rec.id_rec}"></td>
+                                <td th:text="${rec.storage.addr}" th:js-id="${rec.id_rec}"></td>
+                                <td th:text="${rec.totalPrice}" th:js-id="${rec.id_rec}"></td>
+                                <td th:text="${rec.date_time}" th:js-id="${rec.id_rec}"></td>
+
+                                <td>
+                                    <a class="btn btn-primary editButton" th:js-id="${rec.id_rec}">Update</a>
+                                </td>
+                                <!-- <td>
+                                    <a th:href="@{/delete-category/(id = ${rec.id_rec})}"
+                                        class="btn btn-warning">Deleted</a>
+                                </td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer th:replace="fragments :: footer">
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a th:replace="fragments :: scroll">
+    </a>
+
+    <!-- Logout Modal-->
+
+    <!--Add Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <form th:action="@{/add-receiptNote}" method="post" th:object="${receiptNote}">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New Receipt Note</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="idAdd" class="col-form-label">Id:</label>
+                            <input type="text" class="form-control" id="idAdd" name="id_rec">
+                        </div>
+                        <div class="form-group">
+                            <label for="employeeAdd" class="col-form-label">Employee:</label>
+                            <select class="form-control" id="employeeAdd" name="id_emp">
+                                <option value="4">Nguyễn Văn Hà</option>
+                                <option value="5">Hoàng Văn Tư</option>
+                                <option value="6">Lê Minh Trí</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="storageAdd" class="col-form-label">Storage:</label>
+                            <select class="form-control" id="storageAdd" name="id_sto">
+                                <option value="2">Thái Bình</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="priceAdd" class="col-form-label">Total Price:</label>
+                            <input type="number" class="form-control" id="priceAdd" name="totalPrice">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--end-->
+    <!--Change Name category Modal-->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalExample"
+        aria-hidden="true">
+        <form th:action="@{/update-receiptNote}" method="put">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Receipt Note</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="idEdit" class="col-form-label">Id:</label>
+                            <input type="text" class="form-control" id="idEdit" name="id_rec" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="employeeEdit" class="col-form-label">Employee:</label>
+                            <select class="form-control" id="employeeEdit" name="id_emp">
+                                <option value="1">Nguyễn Văn Hà</option>
+                                <option value="2">Hoàng Văn Tư</option>
+                                <option value="3">Lê Minh Trí</option>
+                                <option value="4">Nguyễn Văn Chi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="storageEdit" class="col-form-label">Storage:</label>
+                            <select class="form-control" id="storageEdit" name="id_sto">
+                                <option value="3">Nam Định</option>
+                                <option value="1">Hà Nội</option>
+                                <option value="2">Thái Bình</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="priceEdit" class="col-form-label">Total Price:</label>
+                            <input type="number" class="form-control" id="priceEdit" name="totalPrice">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <div th:replace="fragments :: script"></div>
+    <script>
+        $('document').ready(function () {
+            $('table .editButton').on('click', function (event) {
+                $('#editModal').modal();
+                $('#editModal').find('input[name="id_rec"]').val($(event.target).attr('js-id'));
+            });
+        });
+    </script>
+
+</body>
+
+</html>
