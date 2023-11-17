@@ -1,41 +1,42 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Food;
+import com.example.demo.entity.Storage;
 import com.example.demo.service.FoodService;
+import com.example.demo.service.StorageService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.security.Principal;
 import java.util.List;
 
 @Controller
-public class FoodController {
-    private FoodService service;
+public class StorageController {
+    private StorageService service;
 
-    public FoodController(FoodService service){
+    public StorageController(StorageService service){
         this.service = service;
     }
 
-    @GetMapping("/foods")
-    public String foods(Model model, Principal principal){
+    @GetMapping("/storages")
+    public String storages(Model model, Principal principal){
 //        if(principal == null){
 //            return "redirect:/login";
 //        }
-        List<Food> foods = service.getAll();
-        model.addAttribute("foods", foods);
-        model.addAttribute("size", foods.size());
-        model.addAttribute("title", "Food");
-        model.addAttribute("foodNew", new Food());
-        return "foods";
+        List<Storage> storages = service.getAll();
+        model.addAttribute("storages", storages);
+        model.addAttribute("size", storages.size());
+        model.addAttribute("title", "Storage");
+        model.addAttribute("storageNew", new Storage());
+        return "storages";
     }
 
-    @PostMapping("/add-food")
-    public String add(@ModelAttribute("foodNew") Food food, RedirectAttributes attributes){
+    @PostMapping("/add-storage")
+    public String add(@ModelAttribute("storageNew") Storage storage, RedirectAttributes attributes){
         try {
-            service.save(food);
+            service.save(storage);
             attributes.addFlashAttribute("success", "Added successfully!");
         }catch (DataIntegrityViolationException e){
             e.printStackTrace();
@@ -44,19 +45,19 @@ public class FoodController {
             e.printStackTrace();
             attributes.addFlashAttribute("failed", "Error server!");
         }
-        return "redirect:/foods";
+        return "redirect:/storages";
     }
 
-    @RequestMapping(value = "/findByIdFood", method = {RequestMethod.PUT, RequestMethod.GET})
+    @RequestMapping(value = "/findByIdStorage", method = {RequestMethod.PUT, RequestMethod.GET})
     @ResponseBody
-    public Food getById(String id){
+    public Storage getById(String id){
         return service.getById(id);
     }
 
-    @GetMapping("/update-food")
-    public String update(Food food, RedirectAttributes attributes){
+    @GetMapping("/update-storage")
+    public String update(Storage storage, RedirectAttributes attributes){
         try {
-            service.update(food);
+            service.update(storage);
             attributes.addFlashAttribute("success", "Updated successfully!");
         }catch (DataIntegrityViolationException e){
             e.printStackTrace();
@@ -65,10 +66,10 @@ public class FoodController {
             e.printStackTrace();
             attributes.addFlashAttribute("failed", "Error server");
         }
-        return "redirect:/foods";
+        return "redirect:/storages";
     }
 
-    @RequestMapping(value = "/delete-food", method = {RequestMethod.PUT, RequestMethod.GET})
+    @RequestMapping(value = "/delete-storage", method = {RequestMethod.PUT, RequestMethod.GET})
     public String delete(String id, RedirectAttributes attributes){
         try {
             service.delete(id);
@@ -77,6 +78,6 @@ public class FoodController {
             e.printStackTrace();
             attributes.addFlashAttribute("failed", "Failed to deleted");
         }
-        return "redirect:/foods";
+        return "redirect:/storages";
     }
 }

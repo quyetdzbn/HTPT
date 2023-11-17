@@ -25,9 +25,9 @@
 
                 <!-- Page Heading -->
                 <div th:if="${size == 0}">
-                    <p>No food</p>
+                    <p>No storage</p>
                 </div>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add new food</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add new storage</button>
                 <div th:if = "${success}" class="text-center alert alert-success">
                     <p th:text="${success}"></p>
                 </div>
@@ -38,20 +38,22 @@
                     <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Food Name</th>
-                        <th scope="col">Edit Food</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Edit Storage</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="food : ${foods}">
-                        <th scope="row" th:text="${food.id}"></th>
-                        <td th:text="${food.name}"></td>
+                    <tr th:each="storage : ${storages}">
+                        <th scope="row" th:text="${storage.id}"></th>
+                        <td th:text="${storage.name}"></td>
+                        <td th:text="${storage.addr}"></td>
                         <td>
-                            <a id="editButton" th:href="@{/findByIdFood/(id = ${food.id})}" class="btn btn-primary">Update</a>
+                            <a id="editButton" th:href="@{/findByIdStorage/(id = ${storage.id})}" class="btn btn-primary">Update</a>
                         </td>
                         <td>
-                            <a th:href="@{/delete-food/(id = ${food.id})}" class="btn btn-warning">Deleted</a>
+                            <a th:href="@{/delete-storage/(id = ${storage.id})}" class="btn btn-warning">Deleted</a>
                         </td>
                     </tr>
                     </tbody>
@@ -81,11 +83,11 @@
 
 <!--Add Modal-->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <form th:action="@{/add-food}" method="post" th:object="${foodNew}">
+    <form th:action="@{/add-storage}" method="post" th:object="${storageNew}">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New Food</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">New Storage</h5>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -93,20 +95,16 @@
                         <input type="text" class="form-control" th:field = "*{id}" id="recipient-name">
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Name food:</label>
+                        <label for="recipient-name" class="col-form-label">Name:</label>
                         <input type="text" class="form-control" th:field = "*{name}" id="recipient-name">
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Price:</label>
-                        <input type="text" class="form-control" th:field = "*{price}" id="recipient-name">
+                        <label for="recipient-name" class="col-form-label">Address:</label>
+                        <input type="text" class="form-control" th:field = "*{addr}" id="recipient-name">
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Supplier:</label>
-                        <input type="text" class="form-control" th:field = "*{supplier}" id="recipient-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">In Stock:</label>
-                        <input type="text" class="form-control" th:field = "*{inStock}" id="recipient-name">
+                        <label for="recipient-name" class="col-form-label">Branch:</label>
+                        <input type="text" class="form-control" th:field = "*{id_bra}" id="recipient-name">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -120,11 +118,11 @@
 <!--end-->
 <!--Change Name category Modal-->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalExample" aria-hidden="true">
-    <form th:action="@{/update-food}" method="put">
+    <form th:action="@{/update-storage}" method="put">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Food</h5>
+                    <h5 class="modal-title">Edit Storage</h5>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -132,20 +130,16 @@
                         <input type="text" class="form-control"  id="idEdit" name="id" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="nameEdit" class="col-form-label">Name Food:</label>
+                        <label for="nameEdit" class="col-form-label">Name Storage:</label>
                         <input type="text" class="form-control"  id="nameEdit" name="name">
                     </div>
                     <div class="form-group">
-                        <label for="nameEdit" class="col-form-label">Price:</label>
-                        <input type="text" class="form-control"  id="priceEdit" name="price">
+                        <label for="nameEdit" class="col-form-label">Address:</label>
+                        <input type="text" class="form-control"  id="addrEdit" name="addr">
                     </div>
                     <div class="form-group">
-                        <label for="nameEdit" class="col-form-label">Supplier:</label>
-                        <input type="text" class="form-control"  id="supplierEdit" name="supplier">
-                    </div>
-                    <div class="form-group">
-                        <label for="nameEdit" class="col-form-label">In stock:</label>
-                        <input type="text" class="form-control"  id="inStockEdit" name="inStock">
+                        <label for="nameEdit" class="col-form-label">Branch:</label>
+                        <input type="text" class="form-control"  id="idBraEdit" name="id_bra">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -164,12 +158,11 @@
         $('table #editButton').on('click', function (event){
             event.preventDefault();
             var href = $(this).attr('href');
-            $.get(href, function (food, status){
-                $('#idEdit').val(food.id);
-                $('#nameEdit').val(food.name);
-                $('#priceEdit').val(food.price);
-                $('#supplierEdit').val(food.supplier);
-                $('#inStockEdit').val(food.inStock);
+            $.get(href, function (storage, status){
+                $('#idEdit').val(storage.id);
+                $('#nameEdit').val(storage.name);
+                $('#addrEdit').val(storage.addr);
+                $('#idBraEdit').val(storage.id_bra);
             });
             $('#editModal').modal();
         });

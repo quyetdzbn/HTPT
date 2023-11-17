@@ -1,9 +1,9 @@
 package com.example.demo.repo;
 
-import com.example.demo.entity.Food;
+import com.example.demo.entity.Storage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FoodRepo extends JpaRepository<Food, String> {
+public interface StorageRepo extends JpaRepository<Storage, String> {
 }
