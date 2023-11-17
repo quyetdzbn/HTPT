@@ -15,13 +15,16 @@ import javax.persistence.*;
 @Table(name = "STORAGE")
 public class Storage {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_sto;
+    @Column(name = "id_sto")
+    private String id;
 
-    private String name_sto;
+    @Column(name = "name_sto")
+    private String name;
 
+    @Column(name = "addr")
     private String addr;
 
+    @Column(name = "id_bra")
     private int id_bra;
 
     @OneToMany(mappedBy = "storage")
